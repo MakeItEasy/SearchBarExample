@@ -9,11 +9,14 @@
 /* Begin PBXBuildFile section */
 		7D9F90F21A83600100995D9C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9F90F11A83600100995D9C /* AppDelegate.swift */; };
 		7D9F90F51A83600100995D9C /* SearchBarExample.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7D9F90F31A83600100995D9C /* SearchBarExample.xcdatamodeld */; };
-		7D9F90F71A83600100995D9C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9F90F61A83600100995D9C /* ViewController.swift */; };
 		7D9F90FA1A83600100995D9C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D9F90F81A83600100995D9C /* Main.storyboard */; };
 		7D9F90FC1A83600100995D9C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D9F90FB1A83600100995D9C /* Images.xcassets */; };
 		7D9F90FF1A83600100995D9C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D9F90FD1A83600100995D9C /* LaunchScreen.xib */; };
 		7D9F910B1A83600100995D9C /* SearchBarExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9F910A1A83600100995D9C /* SearchBarExampleTests.swift */; };
+		7D9F91171A83607700995D9C /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9F91161A83607700995D9C /* TableViewController.swift */; };
+		7D9F91191A83612C00995D9C /* cities.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D9F91181A83612C00995D9C /* cities.plist */; };
+		7D9F911E1A83630D00995D9C /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9F911D1A83630D00995D9C /* City.m */; };
+		7D9F91231A83643D00995D9C /* City+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9F91221A83643D00995D9C /* City+Extensions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,15 +32,21 @@
 /* Begin PBXFileReference section */
 		7D9F90EC1A83600100995D9C /* SearchBarExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchBarExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D9F90F01A83600100995D9C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7D9F90F11A83600100995D9C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7D9F90F11A83600100995D9C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = SearchBarExample/AppDelegate.swift; sourceTree = "<group>"; };
 		7D9F90F41A83600100995D9C /* SearchBarExample.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SearchBarExample.xcdatamodel; sourceTree = "<group>"; };
-		7D9F90F61A83600100995D9C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7D9F90F91A83600100995D9C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		7D9F90FB1A83600100995D9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		7D9F90FB1A83600100995D9C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SearchBarExample/Images.xcassets; sourceTree = "<group>"; };
 		7D9F90FE1A83600100995D9C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		7D9F91041A83600100995D9C /* SearchBarExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SearchBarExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D9F91091A83600100995D9C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D9F910A1A83600100995D9C /* SearchBarExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarExampleTests.swift; sourceTree = "<group>"; };
+		7D9F91161A83607700995D9C /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		7D9F91181A83612C00995D9C /* cities.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = cities.plist; sourceTree = "<group>"; };
+		7D9F911B1A83630C00995D9C /* SearchBarExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SearchBarExample-Bridging-Header.h"; sourceTree = "<group>"; };
+		7D9F911C1A83630D00995D9C /* City.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = City.h; sourceTree = "<group>"; };
+		7D9F911D1A83630D00995D9C /* City.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = City.m; sourceTree = "<group>"; };
+		7D9F91201A83639D00995D9C /* City+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "City+Extensions.h"; sourceTree = "<group>"; };
+		7D9F91221A83643D00995D9C /* City+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "City+Extensions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +71,10 @@
 			isa = PBXGroup;
 			children = (
 				7D9F90EE1A83600100995D9C /* SearchBarExample */,
+				7D9F90F11A83600100995D9C /* AppDelegate.swift */,
+				7D9F90F81A83600100995D9C /* Main.storyboard */,
+				7D9F90FB1A83600100995D9C /* Images.xcassets */,
+				7D9F90FD1A83600100995D9C /* LaunchScreen.xib */,
 				7D9F91071A83600100995D9C /* SearchBarExampleTests */,
 				7D9F90ED1A83600100995D9C /* Products */,
 			);
@@ -79,12 +92,10 @@
 		7D9F90EE1A83600100995D9C /* SearchBarExample */ = {
 			isa = PBXGroup;
 			children = (
-				7D9F90F11A83600100995D9C /* AppDelegate.swift */,
-				7D9F90F61A83600100995D9C /* ViewController.swift */,
-				7D9F90F81A83600100995D9C /* Main.storyboard */,
-				7D9F90FB1A83600100995D9C /* Images.xcassets */,
-				7D9F90FD1A83600100995D9C /* LaunchScreen.xib */,
-				7D9F90F31A83600100995D9C /* SearchBarExample.xcdatamodeld */,
+				7D9F911F1A83631B00995D9C /* Bridge */,
+				7D9F911A1A8362BD00995D9C /* DataModels */,
+				7D9F91151A83606600995D9C /* Controllers */,
+				7D9F91141A83601200995D9C /* Models */,
 				7D9F90EF1A83600100995D9C /* Supporting Files */,
 			);
 			path = SearchBarExample;
@@ -94,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				7D9F90F01A83600100995D9C /* Info.plist */,
+				7D9F91181A83612C00995D9C /* cities.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -113,6 +125,41 @@
 				7D9F91091A83600100995D9C /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7D9F91141A83601200995D9C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7D9F911C1A83630D00995D9C /* City.h */,
+				7D9F911D1A83630D00995D9C /* City.m */,
+				7D9F91201A83639D00995D9C /* City+Extensions.h */,
+				7D9F91221A83643D00995D9C /* City+Extensions.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		7D9F91151A83606600995D9C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7D9F91161A83607700995D9C /* TableViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		7D9F911A1A8362BD00995D9C /* DataModels */ = {
+			isa = PBXGroup;
+			children = (
+				7D9F90F31A83600100995D9C /* SearchBarExample.xcdatamodeld */,
+			);
+			name = DataModels;
+			sourceTree = "<group>";
+		};
+		7D9F911F1A83631B00995D9C /* Bridge */ = {
+			isa = PBXGroup;
+			children = (
+				7D9F911B1A83630C00995D9C /* SearchBarExample-Bridging-Header.h */,
+			);
+			name = Bridge;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,6 +245,7 @@
 				7D9F90FA1A83600100995D9C /* Main.storyboard in Resources */,
 				7D9F90FF1A83600100995D9C /* LaunchScreen.xib in Resources */,
 				7D9F90FC1A83600100995D9C /* Images.xcassets in Resources */,
+				7D9F91191A83612C00995D9C /* cities.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,8 +263,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D9F90F71A83600100995D9C /* ViewController.swift in Sources */,
 				7D9F90F51A83600100995D9C /* SearchBarExample.xcdatamodeld in Sources */,
+				7D9F91171A83607700995D9C /* TableViewController.swift in Sources */,
+				7D9F91231A83643D00995D9C /* City+Extensions.m in Sources */,
+				7D9F911E1A83630D00995D9C /* City.m in Sources */,
 				7D9F90F21A83600100995D9C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -246,6 +296,7 @@
 				7D9F90F91A83600100995D9C /* Base */,
 			);
 			name = Main.storyboard;
+			path = SearchBarExample;
 			sourceTree = "<group>";
 		};
 		7D9F90FD1A83600100995D9C /* LaunchScreen.xib */ = {
@@ -254,6 +305,7 @@
 				7D9F90FE1A83600100995D9C /* Base */,
 			);
 			name = LaunchScreen.xib;
+			path = SearchBarExample;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -340,9 +392,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = SearchBarExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SearchBarExample/SearchBarExample-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -350,9 +405,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = SearchBarExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SearchBarExample/SearchBarExample-Bridging-Header.h";
 			};
 			name = Release;
 		};
