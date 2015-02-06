@@ -2,6 +2,8 @@
 
 这里是关于IOS中使用SearchBar的例子。
 
+![Demo运行截图](screenshot.gif "Demo运行截图")
+
 ### 使用到的技术点
 
 * 原生CoreData
