@@ -8,14 +8,16 @@
 
 import UIKit
 
-class TableViewController: UITableViewController {
+class TableViewController: UITableViewController, NSFetchedResultsControllerDelegate, UISearchDisplayDelegate {
     
     var fetchedResultController : NSFetchedResultsController!
     
+    var fetchRequest : NSFetchRequest!
+    
+    var filterResult : [AnyObject]?
+    
     lazy var managedObjectContext : NSManagedObjectContext?  = {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        
-        
         if let managedObjectContext = appDelegate.managedObjectContext {
             return managedObjectContext
         } else {
@@ -26,16 +28,14 @@ class TableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initFrc()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        initSearchFetchRequest()
+        initSectionIndexAreaColors()
+        
+        self.searchDisplayController?.searchResultsTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "CityCell")
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
@@ -54,17 +54,28 @@ class TableViewController: UITableViewController {
         if self.tableView == tableView {
             return self.fetchedResultController.sections![section].numberOfObjects
         } else {
-            // TODO dairg
-            return 1
+            return self.filterResult?.count ?? 0
         }
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("CityCell", forIndexPath: indexPath) as UITableViewCell
-        let city = self.fetchedResultController.objectAtIndexPath(indexPath) as City
-        cell.textLabel?.text = city.name
-        cell.detailTextLabel?.text = city.name
+        // 方案1:如果查询结果只有一条，不会出错，如果查询结果有>1条,异常,原因可能是本身self.tableView中没有［section:0, row: 1］的数据
+        // Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason: 'request for rect at invalid index path (<NSIndexPath: 0xc000000000008016> {length = 2, path = 0 - 1})'
+        // let cell = self.tableView.dequeueReusableCellWithIdentifier("CityCell", forIndexPath: indexPath) as UITableViewCell
+        // 方案2
+        let cell = self.tableView.dequeueReusableCellWithIdentifier("CityCell") as UITableViewCell
+        // 方案3
+        // let cell = self.tableView.dequeueReusableCellWithIdentifier("CityCell", forIndexPath: NSIndexPath(forRow: 0, inSection: 2)) as UITableViewCell
+        // 方案4:这样的话需要tableViewre.gisterClass(UITableViewCell.self, forCellReuseIdentifier: "CityCell")
+        // let cell = tableView.dequeueReusableCellWithIdentifier("CityCell", forIndexPath: indexPath) as UITableViewCell
+        var city : City
+        if tableView == self.tableView {
+            city = self.fetchedResultController.objectAtIndexPath(indexPath) as City
+        } else {
+            city = self.filterResult![indexPath.row] as City
+        }
+        cell.textLabel?.text = "\(city.name)(\(city.desc))"
         return cell
     }
     
@@ -91,29 +102,26 @@ class TableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
-        if (tableView == self.tableView)
-        {
-            if (index > 0)
-            {
+        if (tableView == self.tableView) {
+            if (index > 0) {
                 // The index is offset by one to allow for the extra search icon inserted at the front
                 // of the index
                 return self.fetchedResultController.sectionForSectionIndexTitle(title, atIndex: index-1)
-            }
-            else
-            {
+            } else {
                 // The first entry in the index is for the search icon so we return section not found
                 // and force the table to scroll to the top.
-                // TODO dairg 确认搜索定位对不对
-                self.tableView.contentOffset = CGPointZero;
+                // 以下这行代码的定位不对，可能如果没有导航栏应该是对的
+                // self.tableView.contentOffset = CGPointZero
+                self.tableView.scrollRectToVisible(CGRectMake(0, 0, 1, 1), animated: false)
                 return NSNotFound;
             }
-        }
-        else
-        {
+        } else {
             return 0;
         }
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -150,17 +158,72 @@ class TableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        if segue.identifier == "GotoCityDetail" {
+            var city : City
+            if self.searchDisplayController!.active {
+                var dc = self.searchDisplayController
+                var indexPath = dc!.searchResultsTableView.indexPathForCell(sender as UITableViewCell)
+                city = self.filterResult![indexPath!.row] as City
+            } else {
+                var indexPath = self.tableView.indexPathForCell(sender as UITableViewCell)
+                city = self.fetchedResultController.objectAtIndexPath(indexPath!) as City
+            }
+            let controller = segue.destinationViewController as CityDetailViewController
+            controller.city = city
+        }
     }
-    */
     
     
+    // ================================================================================================
+    // MARK: - FetchedResultController Delegate
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        self.tableView.reloadData()
+    }
+    
+    // ================================================================================================
+    // MARK: - Search Display Controller Delegate
+
+    func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchString searchString: String!) -> Bool {
+        self.searchForText(searchString, scope: controller.searchBar.selectedScopeButtonIndex)
+        return true
+    }
+    
+    func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchScope searchOption: Int) -> Bool {
+        self.searchForText(controller.searchBar.text, scope: searchOption)
+        return true
+    }
+    
+    private func searchForText(text: String, scope: Int) {
+        if (self.managedObjectContext != nil)
+        {
+            var searchAttribute = "spelling"
+            var predicateFormat = "%K BEGINSWITH[cd] %@"
+            
+            if (scope == 1) {
+                searchAttribute = "desc";
+            }
+            let predicate = NSPredicate(format: predicateFormat, searchAttribute, text)
+            self.fetchRequest.predicate = predicate
+            
+            let error = NSErrorPointer()
+            self.filterResult = self.managedObjectContext!.executeFetchRequest(self.fetchRequest, error: error)
+            // TODO dairg Error handler
+            /*
+            if (error)
+            {
+                NSLog(@"searchFetchRequest failed: %@",[error localizedDescription]);
+            }
+            */
+        }
+
+    }
     
     // ================================================================================================
     // MARK: - Private Method
@@ -169,7 +232,7 @@ class TableViewController: UITableViewController {
             let request = NSFetchRequest(entityName: "City")
             request.sortDescriptors = [NSSortDescriptor(key: "spelling", ascending: true)]
             self.fetchedResultController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: "sectionTitle", cacheName: nil)
-            
+            self.fetchedResultController.delegate = self
             var error : NSErrorPointer = nil
             self.fetchedResultController.performFetch(error)
             if error != nil
@@ -178,6 +241,23 @@ class TableViewController: UITableViewController {
             }
 
         }
+    }
+    
+    private func initSearchFetchRequest() {
+        if self.fetchRequest == nil {
+            self.fetchRequest = NSFetchRequest(entityName: "City")
+            self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "spelling", ascending: true)]
+        }
+    }
+    
+    private func initSectionIndexAreaColors() {
+        // 正常的BackgroundColor（没有被按下的时候）
+        // 透明色
+        self.tableView.sectionIndexBackgroundColor = UIColor.clearColor()
+        // 被按下的时候的背景色
+        self.tableView.sectionIndexTrackingBackgroundColor = UIColor.redColor()
+        // 字体颜色
+        self.tableView.sectionIndexColor = UIColor.blueColor()
     }
 
 }

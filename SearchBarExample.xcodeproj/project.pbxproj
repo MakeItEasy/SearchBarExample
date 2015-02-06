@@ -17,6 +17,7 @@
 		7D9F91191A83612C00995D9C /* cities.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D9F91181A83612C00995D9C /* cities.plist */; };
 		7D9F911E1A83630D00995D9C /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9F911D1A83630D00995D9C /* City.m */; };
 		7D9F91231A83643D00995D9C /* City+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9F91221A83643D00995D9C /* City+Extensions.m */; };
+		7D9F91251A848B3400995D9C /* CityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9F91241A848B3400995D9C /* CityDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		7D9F911D1A83630D00995D9C /* City.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = City.m; sourceTree = "<group>"; };
 		7D9F91201A83639D00995D9C /* City+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "City+Extensions.h"; sourceTree = "<group>"; };
 		7D9F91221A83643D00995D9C /* City+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "City+Extensions.m"; sourceTree = "<group>"; };
+		7D9F91241A848B3400995D9C /* CityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				7D9F91161A83607700995D9C /* TableViewController.swift */,
+				7D9F91241A848B3400995D9C /* CityDetailViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 				7D9F91171A83607700995D9C /* TableViewController.swift in Sources */,
 				7D9F91231A83643D00995D9C /* City+Extensions.m in Sources */,
 				7D9F911E1A83630D00995D9C /* City.m in Sources */,
+				7D9F91251A848B3400995D9C /* CityDetailViewController.swift in Sources */,
 				7D9F90F21A83600100995D9C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
