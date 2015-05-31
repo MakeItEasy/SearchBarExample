@@ -17,7 +17,7 @@ class TableViewController: UITableViewController, NSFetchedResultsControllerDele
     var filterResult : [AnyObject]?
     
     lazy var managedObjectContext : NSManagedObjectContext?  = {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         if let managedObjectContext = appDelegate.managedObjectContext {
             return managedObjectContext
         } else {
@@ -64,16 +64,16 @@ class TableViewController: UITableViewController, NSFetchedResultsControllerDele
         // Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason: 'request for rect at invalid index path (<NSIndexPath: 0xc000000000008016> {length = 2, path = 0 - 1})'
         // let cell = self.tableView.dequeueReusableCellWithIdentifier("CityCell", forIndexPath: indexPath) as UITableViewCell
         // 方案2
-        let cell = self.tableView.dequeueReusableCellWithIdentifier("CityCell") as UITableViewCell
+        let cell = self.tableView.dequeueReusableCellWithIdentifier("CityCell") as! UITableViewCell
         // 方案3
         // let cell = self.tableView.dequeueReusableCellWithIdentifier("CityCell", forIndexPath: NSIndexPath(forRow: 0, inSection: 2)) as UITableViewCell
         // 方案4:这样的话需要tableViewre.gisterClass(UITableViewCell.self, forCellReuseIdentifier: "CityCell")
         // let cell = tableView.dequeueReusableCellWithIdentifier("CityCell", forIndexPath: indexPath) as UITableViewCell
         var city : City
         if tableView == self.tableView {
-            city = self.fetchedResultController.objectAtIndexPath(indexPath) as City
+            city = self.fetchedResultController.objectAtIndexPath(indexPath) as! City
         } else {
-            city = self.filterResult![indexPath.row] as City
+            city = self.filterResult![indexPath.row] as! City
         }
         cell.textLabel?.text = "\(city.name)(\(city.desc))"
         return cell
@@ -95,7 +95,7 @@ class TableViewController: UITableViewController, NSFetchedResultsControllerDele
         if (tableView == self.tableView) {
             var indexs : NSMutableArray = [UITableViewIndexSearch]
             indexs.addObjectsFromArray(self.fetchedResultController.sectionIndexTitles)
-            return indexs
+            return indexs as [AnyObject]
         } else {
             return nil
         }
@@ -169,13 +169,13 @@ class TableViewController: UITableViewController, NSFetchedResultsControllerDele
             var city : City
             if self.searchDisplayController!.active {
                 var dc = self.searchDisplayController
-                var indexPath = dc!.searchResultsTableView.indexPathForCell(sender as UITableViewCell)
-                city = self.filterResult![indexPath!.row] as City
+                var indexPath = dc!.searchResultsTableView.indexPathForCell(sender as! UITableViewCell)
+                city = self.filterResult![indexPath!.row] as! City
             } else {
-                var indexPath = self.tableView.indexPathForCell(sender as UITableViewCell)
-                city = self.fetchedResultController.objectAtIndexPath(indexPath!) as City
+                var indexPath = self.tableView.indexPathForCell(sender as! UITableViewCell)
+                city = self.fetchedResultController.objectAtIndexPath(indexPath!) as! City
             }
-            let controller = segue.destinationViewController as CityDetailViewController
+            let controller = segue.destinationViewController as! CityDetailViewController
             controller.city = city
         }
     }
